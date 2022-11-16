@@ -1,0 +1,39 @@
+.btn-size {
+    background: #cccccc;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    border: none;
+    padding: 5px;
+    margin-right: 15px;
+    color: #1e1d1d;
+}
+.btn-quantity {
+    background: linear-gradient(180deg, #6181f3 0%, #7c97f5 99.48%);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    border: none;
+    padding: 0 10px;
+    color: white;
+}
+.price {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+    margin-top: 10px;
+    color: #fc0303;
+}
+.btn-add {
+    background: linear-gradient(270deg, rgba(62, 32, 248, 0.9) 5.14%, #d017ee 89.71%);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    display: inline-block;
+    margin-top: 20px;
+   padding: 10px 20px;
+    color: #fff8f8;
+}

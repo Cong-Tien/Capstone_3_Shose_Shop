@@ -1,0 +1,65 @@
+.product-title {
+    background: linear-gradient(180deg, #f21299 0%, #1b02b5 100%);
+    display: inline-block;
+    padding: 10px 30px;
+    margin-bottom: 30px;
+    h2 {
+        display: inline;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 48px;
+        color: white;
+        padding-right: 300px;
+    }
+}
+.card {
+    img {
+    }
+    .card-body {
+        h4 {
+            font-style: normal;
+            font-weight: 300;
+            font-size: 24px;
+            line-height: 29px;
+            color: #000000;
+        }
+        span {
+            font-style: normal;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+
+            color: #cbc9c9;
+        }
+        p {
+        }
+    }
+    .card-footer {
+        padding: 0;
+        a {
+            display: block;
+            background-color: #9de167 !important;
+            border: none;
+            border-radius: none !important;
+            text-align: center;
+            margin: auto 0;
+            padding: 10px 0;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 29px;
+            color: #000000;
+        }
+        p {
+            text-align: center;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 29px;
+            margin: auto 0;
+            padding: 10px 0;
+            color: #000000;
+        }
+    }
+}
