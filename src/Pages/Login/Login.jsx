@@ -3,11 +3,12 @@ import {useFormik} from "formik"
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { loginApi } from '../../redux/userReducer';
-import {NavLink} from 'react-router-dom'
+import {NavLink, useNavigate} from 'react-router-dom'
 import FaceBookLogin from './FaceBookLogin';
 
 export default function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const frm = useFormik({
       initialValues:{
         email:'',
@@ -19,6 +20,7 @@ export default function Login() {
       onSubmit:(value) => {
        const action = loginApi(value);
        dispatch(action)
+        
       }
   })
   return (

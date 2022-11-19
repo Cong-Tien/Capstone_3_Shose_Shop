@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import _ from 'lodash'
+import { useSelector } from 'react-redux'
+import { history } from '..'
 import { http, TOKEN_CYBERSOFT } from '../Util/config'
 
 const initialState = {
@@ -24,6 +27,8 @@ const initialState = {
         },
     ],
     productDetail: {},
+    arrCart:[],
+    arrSearch:[]
 }
 
 const productReducer = createSlice({
@@ -35,11 +40,38 @@ const productReducer = createSlice({
         },
         getProductDetailAction: (state, action) => {
             state.productDetail = action.payload
-        }
+        },
+        getItemCart: (state, action) => {
+            //let arr = [...state.arrCart];
+            const item = action.payload;
+            state.arrCart = [...state.arrCart,action.payload]
+            console.log(action.payload);
+            console.log(state.arrCart);
+        },
+        setTang: (state, action) => {
+            const item = state.arrCart.find(item => item.id = action.payload);
+            item.quantity +=1
+        },
+        setGiam: (state, action) => {
+            const item = state.arrCart.find(item => item.id = action.payload);
+            if(item.quantity>1){
+                item.quantity -=1
+            }
+        },
+        searchAction: (state, action) => {
+            state.arrSearch = action.payload
+        },
+        searchSortAction: (state, action) => {
+            if(action.payload===true){
+                state.arrSearch = _.sortBy(state.arrSearch, [function(o) { return o.price; }])
+            }else{
+                state.arrSearch = _.sortBy(state.arrSearch, [function(o) { return -o.price; }])
+            }
+        },
     },
 })
 
-export const { getProductAction,getProductDetailAction} = productReducer.actions
+export const { getProductAction,getProductDetailAction,getItemCart,searchSortAction,setTang,setGiam,searchAction} = productReducer.actions
 
 export default productReducer.reducer
 
@@ -60,3 +92,40 @@ export const getProductDetailApi = (id) => {
         } catch (err) {}
     }
 }
+
+export const postOrder = (arrCart,email) => {
+    return async (dispatch) => {
+        let order = {
+            orderDetail:[],
+            email:email
+        }
+        try {  
+            console.log(email);
+            console.log(arrCart);
+            arrCart.map((cart,index) => {
+                let item ={productId:cart.id,
+                quantity:cart.quantity}
+                order.orderDetail.push(item)
+            })
+            console.log(order.orderDetail);
+            let result = await http.post(`/api/Users/order`,order);
+            console.log(order);
+            console.log(result.data.content);
+            history.push('/profile')
+            
+        } catch (err) {}
+    }
+}
+
+
+export const getSreach = (name) => {
+    return async (dispatch) => {
+        try {  
+            let result = await http.get(`/api/Product?keyword=${name}`);
+            const action = searchAction(result.data.content)
+            console.log(result.data.content);
+            dispatch(action)
+        } catch (err) {}
+    }
+}
+

@@ -7,7 +7,7 @@ export default function HomeTemplate() {
   return (
     <div>
         <HeaderHome/>
-        <div style={{minHeight:400}}>
+        <div style={{minHeight:600}}>
         <Outlet/>
         </div>
         <FooterHome/>

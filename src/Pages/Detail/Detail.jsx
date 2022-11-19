@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
-import { getProductDetailApi } from '../../redux/productReducer'
+import { getItemCart, getProductDetailApi } from '../../redux/productReducer'
+import { getProfileApi } from '../../redux/userReducer'
 
 export default function Detail() {
     const { productDetail } = useSelector((state) => state.productReducer)
     const dispatch = useDispatch()
+    const [soLuong,setSoLuong] = useState(1);
     const { id } = useParams()
     useEffect(() => {
         const action = getProductDetailApi(id)
         dispatch(action)
+        const action2 =getProfileApi()
+        dispatch(action2)
     }, [id])
     return (
         <div className="container">
@@ -29,10 +33,21 @@ export default function Detail() {
                         )
                     })}
                     <p className='price'>{productDetail.price} $</p>
-                    <button className='btn-quantity'>+</button>
-                    <span className='mx-2 fs-5'>1</span>
-                    <button className='btn-quantity'>-</button><br/>
-                    <NavLink className="btn-add">Add to card</NavLink>
+                    <button className='btn-quantity' onClick={() => {
+                        setSoLuong(soLuong+1)
+                    }}>+</button>
+                    <span className='mx-2 fs-5' id='soLuong'>{soLuong}</span>
+                    <button className='btn-quantity' onClick={() => {
+                        if(soLuong > 1){
+                            setSoLuong(soLuong-1)
+                        }
+                    }}>-</button><br/>
+                    <button className="btn-add" onClick={() => {
+                        let productDetailFake = {...productDetail}
+                        productDetailFake.quantity=soLuong;
+                        const action = getItemCart(productDetailFake)
+                        dispatch(action)
+                    }}>Add to card</button>
                 </div>
             </div>
             <h3 className="mt-2 text-center">-Related Product-</h3>

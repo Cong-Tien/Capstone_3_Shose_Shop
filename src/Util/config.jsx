@@ -1,4 +1,5 @@
 import axios from "axios";
+import { history } from "..";
 
 export const TOKEN_CYBERSOFT ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAzMyIsIkhldEhhblN0cmluZyI6IjA4LzA0LzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY4MDkxMjAwMDAwMCIsIm5iZiI6MTY1Mjg5MzIwMCwiZXhwIjoxNjgxMDU5NjAwfQ.YWfEjzumDyUA3XRRvMIkDiD1cOGgRKyAAeOTP3qTT2c";
 export const USER_LOGIN = "userLogin";
@@ -85,4 +86,16 @@ http.interceptors.request.use((config) => {
 },err => {
     console.log(err);
     return Promise.reject(err);
+})
+
+http.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    if(error.response?.status === 401){
+        history.push('/login')
+    }
+    if(error.response?.status === 400 || error.response?.status === 404){
+        history.push('/home')
+    }
+    return Promise.reject(error)
 })

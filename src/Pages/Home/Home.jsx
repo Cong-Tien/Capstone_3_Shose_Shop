@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { getProductApi } from '../../redux/productReducer'
 import { Carousel } from 'antd'
+import { getProfileApi } from '../../redux/userReducer'
+import { ACESS_TOKEN, settings } from '../../Util/config'
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -10,6 +12,11 @@ export default function Home() {
     useEffect(() => {
         const action = getProductApi()
         dispatch(action)
+
+        if(settings.getStore(ACESS_TOKEN)){
+            const action2 = getProfileApi();
+        dispatch(action2)
+        }
     }, [])
 
     return (
